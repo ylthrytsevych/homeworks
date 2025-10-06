@@ -1,15 +1,12 @@
 package homework5;
-
 import java.util.Scanner;
 
 /*
 Доходи оподатковуются за прогресивною шкалою оподаткування:
-
 від 0 до 10000, включно, за ставкою 2,5%.
 від 10000, виключно, до 25000, включно, за ставкою 4,3%.
 більше 25000, за ставкою 6,7%.
 Необхідно розрахувати суму податку від певної суми доходу. Сума податку дорівнює відсотку від суми доходу.
-
  */
 
 public class Main {
@@ -40,6 +37,21 @@ public class Main {
 
         taxValue = income * taxRate / 100;
         System.out.printf(message, taxRate, taxValue, curr);
+
+
+        //--------------------------------------------------------
+        //РІШЕННЯ 2 з тернарними операторами
+
+//        double taxRate = (income > 0 && income <= 10000) ? 2.5 :
+//                (income > 10000 && income <= 25000) ? 4.3 :
+//                        (income > 25000) ? 6.7 : 0;
+//
+//        if (taxRate == 0) {
+//            System.out.println("You have entered wrong value");
+//        } else {
+//            double taxValue = income * taxRate / 100;
+//            System.out.printf(message, taxRate, taxValue, curr);
+//        }
 
     }
 }
