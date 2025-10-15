@@ -1,4 +1,5 @@
 package homework8;
+
 import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
@@ -15,8 +16,7 @@ import java.util.Scanner;
 Використовуючи алгоритм бінарного пошуку, знайдіть і виведіть індекс введеного користувачем числа у відсортованому масиві або повідомте, якщо числа немає.
 Залийте виконаний проект на свій GitHub репозиторій, посилання на який зазначте в LMS.
  */
-public class Main
-{
+public class Main {
     public static void main(String[] args) {
         int[] array = new int[15];
         int len = array.length;
@@ -89,4 +89,76 @@ public class Main
             System.out.print(res);
         }
     }
+
+
+    // Метод для сортування масиву методом бульбашкою
+    public static void bubbleSort(int[] array) {
+        int tempLen = array.length;
+        int len = array.length;
+        for (int j = 0; j < tempLen; j++) {
+            for (int i = 0; i < len - 1; i++) {
+                if (array[i] > array[i + 1]) {
+                    int temp = array[i + 1];
+                    array[i + 1] = array[i];
+                    array[i] = temp;
+                }
+            }
+            len--;
+        }
+    }
+
+    // Метод для сортування масиву методом вставки
+    public static void insertionSort(int[] array) {
+        for (int i = 1; i < array.length; i++) {
+            int key = array[i];
+            int searchIndex = i - 1;
+            while (searchIndex>=0 && array[searchIndex]>key){
+                array[searchIndex+1] = array[searchIndex];
+                searchIndex--;
+            }
+            array[searchIndex+1] = key;
+        }
+    }
+
+    // Метод для сортування масиву методом вибору
+    public static void selectionSort(int[] array) {
+        int len = array.length;
+        int curMinIndex;
+        for (int i = 0; i < len; i++) {
+            curMinIndex = i;
+            for (int j = i + 1; j < len; j++) {
+                if (array[j] < array[curMinIndex]) {
+                    curMinIndex = j;
+                }
+            }
+            int temp = array[i];
+            array[i] = array[curMinIndex];
+            array[curMinIndex] = temp;
+        }
+    }
+
+    // Метод для бінарного пошуку елемента в відсортованому масиві
+    //тобто працюватиме виключно на відсортованому масиві
+    public static int binarySearch(int[] array, int target) {
+        int left = 0;
+        int right = array.length-1;
+        int mid;
+        int result=-1;
+        while(left<=right){
+            mid = (left+right)/2;
+            if(target == array[mid]){
+                result = mid;
+                break;
+            }
+            else if(target<array[mid])
+            {
+                right = mid-1;
+            } else if (target>array[mid]) {
+                left = mid +1;
+            }
+        }
+        return result;
+    }
+
+
 }
