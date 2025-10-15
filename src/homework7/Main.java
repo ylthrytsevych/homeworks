@@ -87,16 +87,4 @@ public class Main
         }
 
     }
-
-    public static double calculateAverage(int[] array) {
-        double even = 0.0f;
-        int sum = 0;
-        for(int val: array){
-            sum+=val;
-        }
-        if(array.length>0){
-        even = (double)sum/(double)array.length;}
-        else even = 0;
-        return even;
-    }
 }
