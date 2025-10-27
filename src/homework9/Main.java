@@ -181,4 +181,121 @@ public class Main {
 
     }
 
+
+    // Метод для знаходження суми всіх елементів в багатовимірному масиві
+    public static int calculateSum(int[][] array) {
+        int sum = 0;
+        for (int[] ints : array) {
+            for (int anInt : ints) {
+                sum+=anInt;
+            }
+        }
+        return sum;
+    }
+
+    // Метод для знаходження максимального значення в багатовимірному масиві
+    public static int findMaxValue(int[][] array) {
+        boolean hasElements = true;
+        int max = Integer.MIN_VALUE;
+        if(array.length<=0){
+            hasElements = false;
+        }
+        for (int[] ints : array) {
+            for (int anInt : ints) {
+                if(anInt>=max){
+                    max = anInt;
+                }
+            }
+        }
+        return hasElements ? max : Integer.MIN_VALUE;
+    }
+
+    // Метод для знаходження кількості елементів в багатовимірному масиві, що дорівнюють заданому значенню
+    public static int countOccurrences(int[][] array, int targetValue) {
+        int count = 0;
+        for (int[] ints : array) {
+            for (int anInt : ints) {
+                if(anInt == targetValue)
+                    count++;
+            }
+        }
+        return count;
+    }
+
+    // Допоміжний метод для розрахунку кількості елементів в багатовимірному масиві
+    private static int countElements(int[][] array) {
+        int count = 0;
+        for (int[] row : array) {
+            count += row.length;
+        }
+        return count;
+    }
+
+    // Метод для знаходження середнього арифметичного значень в багатовимірному масиві
+    public static double calculateAverage(int[][] array) {
+        int sum = calculateSum(array);
+        int totalElements = countElements(array);
+        double aver = (double) sum / totalElements;
+        return (totalElements==0) ? 0 : aver;
+    }
+
+    /**
+     * Метод для визначення, чи сума елементів всіх рядків дорівнює сумі елементів всіх стовпців,
+     * шляхом явного обчислення обох значень.
+     */
+    // Метод для визначення чи сума елементів всіх рядків дорівнює сумі елементів всіх стовбців
+    public static boolean isSumOfRowsEqualSumOfColumns(int[][] array) {
+        // Перевірка №1: Масив не може бути null або не містити рядків.
+        if (array == null || array.length == 0) {
+            return false;
+        }
+
+        // Перевірка №2: Перевіряємо перший рядок. Він не може бути null
+        // і, що найголовніше, не може бути порожнім (мати довжину 0).
+        if (array[0] == null || array[0].length == 0) {
+            return false;
+        }
+
+        // Беремо довжину першого рядка за еталон. Тепер ми знаємо, що вона > 0.
+        int standardRowLength = array[0].length;
+
+        // Перевірка №3: Перевіряємо, чи всі наступні рядки відповідають еталону.
+        for (int i = 1; i < array.length; i++) {
+            // Рядок не може бути null і повинен мати таку ж довжину.
+            if (array[i] == null || array[i].length != standardRowLength) {
+                return false;
+            }
+        }
+
+        long totalRowSum = 0;
+        int maxCols = 0;
+
+        // Обчислюємо суму по рядках та шукаємо максимальну кількість стовпців.
+        // NULL-рядок трактуємо як рядок довжини 0 (дає внесок 0).
+        for (int i = 0; i < array.length; i++) {
+            int[] row = array[i];
+            if (row != null) {
+                maxCols = Math.max(maxCols, row.length);
+                for (int v : row) {
+                    totalRowSum += v;
+                }
+            }
+            // якщо row == null -> нічого не додаємо, maxCols не змінюємо
+        }
+
+        // Обчислюємо суму по стовпцях, перебираючи j від 0 до maxCols-1.
+        // Для коротших або null-рядків пропускаємо (важить як 0).
+        long totalColSum = 0;
+        for (int j = 0; j < maxCols; j++) {
+            for (int i = 0; i < array.length; i++) {
+                int[] row = array[i];
+                if (row != null && j < row.length) {
+                    totalColSum += row[j];
+                }
+            }
+        }
+
+        return totalRowSum == totalColSum;
+    }
+
 }
